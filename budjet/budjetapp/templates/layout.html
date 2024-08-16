@@ -13,6 +13,11 @@
     <link rel="icon" href="{% static 'images/nav_logo.png' %}" type="image/logo">
     {% block head %}{% endblock head %}
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
         :root {
             /* Gradient Colors */
             --primary-gradient-start: #007bff; /* Starting color for the gradient */
@@ -119,6 +124,7 @@
             color: #fff;
             padding: 2rem 0;
             text-align: center;
+            bottom: 0px;
         }
         .footer h5 {
             margin-bottom: 1rem;
@@ -142,6 +148,14 @@
         .footer .social-icons a {
             margin: 0 10px;
         }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+
     </style>
 </head>
 <body>
@@ -201,9 +215,7 @@
         <!-- Content here -->
         {% endblock body %}
     </div>
-    <br>
-    <br>
-    <br>
+
     <!-- Footer -->
     <footer class="footer">
         <h5>Created with love by Abdullah Alzahrani</h5>

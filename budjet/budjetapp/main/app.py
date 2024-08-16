@@ -4,8 +4,8 @@ from datetime import datetime
 from .data import *
 
 class CSV:
-    csv_file = "finance_data.csv"
-    columns = ["date", "amount", "category", "description", "balance"]
+    csv_file = "csv/finance_data.csv"
+    columns = ["date", "amount", "category", "description", "balance", "session_key"]
     
     #opens a csv file with the desired categories if there is'nt one already
     @classmethod
@@ -18,19 +18,28 @@ class CSV:
             df = pd.DataFrame(columns=cls.columns)
             df.to_csv(cls.csv_file, index=False)
 
-            CSV.add("00-00-0000", "0", "Income", None)
+            CSV.add("10-10-1000", "0", "Income", "empty", 0)
 
 
     @classmethod
-    def add(cls, date, amount, category, description):
+    def add(cls, date, amount, category, description, session_key):
+       
+
         #creates dict to add into csv
         new_row = {
             "date": date,
             "amount": amount,
             "category": category,
             'description': description,
-            'balance': 0
+            'balance': 0,
+            "session_key": session_key
         }
+        
+        if category == "Expense":
+            new_row["balance"] = float(amount)*-1
+
+        elif category == "Income":
+            new_row["balance"] = float(amount)
 
 
         #opens csv file and writes the dict into it
@@ -43,12 +52,18 @@ class CSV:
             print("ROWS: ", rows)
             sorted_rows = sorted(rows, key=lambda row: datetime.strptime(row['date'], DATEFORMAT), reverse=False)
             print("SORTED ROWS: ", sorted_rows)
+            session_rows=[]
+            for dictrow in sorted_rows:
+                if dictrow["session_key"] == session_key:
+                    session_rows.append(dictrow)
 
+            sorted_rows=session_rows
             #loop inside csv for amounts and types and adds balance as a column
             for i, row in enumerate(sorted_rows, start=1):
                 #represents the balance right before this trasaction
+                print("\n \n\n\n\n ROW", row)
                 prev_balance = float(row["balance"])
-                if prev_balance != None:
+                if str(prev_balance) != "empty" and prev_balance:
 
                     print("prev balance: ", prev_balance, "\n Category", category)
                     if category == "Expense":
@@ -58,9 +73,6 @@ class CSV:
                         new_row["balance"] = prev_balance + float(amount)
                     else:
                         print("Internal error line 55")
-                else:
-                    new_row["balance"] = 0
-
                     
                     
             
@@ -72,19 +84,27 @@ class CSV:
         print(" Entry added successfuly")
 
     @classmethod
-    def read(cls):
-        with open(cls.csv_file, "r") as csvfile:
-            reader = csv.DictReader(csvfile)
-            rows = list(reader)[1:]
-            i=0
-            sorted_rows = sorted(rows, key=lambda row: datetime.strptime(row['date'], DATEFORMAT), reverse=False)
-            for dictrow in sorted_rows:
-                sorted_rows[i]=dictrow.values()
-                i+=1
-            print("sorted rows", sorted_rows)
+    def read(cls, session):
+        try:
+            with open(cls.csv_file, "r") as csvfile:
+                reader = csv.DictReader(csvfile)
+                rows = list(reader)[1:]
+                i=0
+                sorted_rows = sorted(rows, key=lambda row: datetime.strptime(row['date'], DATEFORMAT), reverse=False)
+                for dictrow in sorted_rows:
+                    if sorted_rows[i]["session_key"] == session:
+                        dictrow.pop("session_key")
+                        sorted_rows[i]=dictrow.values()
 
-            return reversed(sorted_rows)
+                    else:
+                        sorted_rows[i]=None
 
+                    i+=1
+                    print("sorted rows", sorted_rows)
+
+                return reversed(sorted_rows)
+        except FileNotFoundError:
+            cls.init_csv(session)
 
 
 def run():

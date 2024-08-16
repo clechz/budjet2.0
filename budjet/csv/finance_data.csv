@@ -1,0 +1,10 @@
+date,amount,category,description,balance,session_key
+10-10-1000,0,Income,,empty,0
+30-08-2022,100,Income,1,100,3zs7liujo4ficjd3ftr5nsl3934dur22
+30-08-2022,100,Income,1,200.0,3zs7liujo4ficjd3ftr5nsl3934dur22
+30-08-2022,100,Income,1,300.0,3zs7liujo4ficjd3ftr5nsl3934dur22
+30-08-2026,50,Expense,2,-50.0,pf4bgil05hk7z2fp8o7ss2jk5rh3jg9w
+30-08-2026,50,Expense,2,-100.0,pf4bgil05hk7z2fp8o7ss2jk5rh3jg9w
+30-08-2022,100,Income,1,400.0,3zs7liujo4ficjd3ftr5nsl3934dur22
+30-08-2028,150,Income,2,50.0,pf4bgil05hk7z2fp8o7ss2jk5rh3jg9w
+30-08-2022,1,Expense,3,-1.0,189cjq0kg9wbk9pxvbxnlwdnkm65690l
