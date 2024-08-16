@@ -4,5 +4,5 @@ set -o errexit
 
 pip install -r requirements.txt
 
-python manage.py collectstatic --no-input
-python manage.py migrate
+python budjet/manage.py collectstatic --no-input
+python budjet/manage.py migrate
