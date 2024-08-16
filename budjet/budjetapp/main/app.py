@@ -71,6 +71,21 @@ class CSV:
             writer.writerow(new_row)
         print(" Entry added successfuly")
 
+    @classmethod
+    def read(cls):
+        with open(cls.csv_file, "r") as csvfile:
+            reader = csv.DictReader(csvfile)
+            rows = list(reader)[1:]
+            i=0
+            sorted_rows = sorted(rows, key=lambda row: datetime.strptime(row['date'], DATEFORMAT), reverse=False)
+            for dictrow in sorted_rows:
+                sorted_rows[i]=dictrow.values()
+                i+=1
+            print("sorted rows", sorted_rows)
+
+            return reversed(sorted_rows)
+
+
 
 def run():
     #ensures there is a dict already

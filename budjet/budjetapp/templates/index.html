@@ -1,39 +1,135 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
+
+{% block head %}
+    <title>BudJet - Personal Funding Assistant</title>
+{% endblock head %}
 
 {% block body %}
-    <h1>BudJet</h1>
-    <form action="/" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="dateInput">Transaction Date</label>
-          <input type="text" class="form-control" id="dateInput" name="dateInput" placeholder="dd-mm-yyyy">
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="jumbotron text-center" style="background-color: #f8f9fa; padding: 3rem;">
+        <h1 class="display-4">Welcome to BudJet</h1>
+        <p class="lead">Your personal funding assistant. Track your expenses, manage your budget, and take control of your finances with ease.</p>
+        <div class="d-flex justify-content-center flex-wrap">
+            <a href="/add/" class="btn btn-primary btn-lg m-2">Add New Transaction</a>
+            <a href="/transactions/" class="btn btn-primary btn-lg m-2">View Transaction History</a>
         </div>
-        <div class="form-group">
-            <label for="amountInput">Amount</label>
-            <input type="number" class="form-control" id="amountInput" name="amountInput" placeholder="Enter an amount">
-        </div>
-        <div class="form-group">
-          <label for="categoryInput">Example select</label>
-          <select class="form-control" id="categoryInput" name="categoryInput">
-            {% for category in categories  %}
-                <option>{{category}}</option>
-            {% empty %}
-            <option>No Category</option>                
-            {% endfor %}
+    </div>
 
-          </select>
+    <!-- Features Section -->
+    <div class="row text-center mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Track Spending</h3>
+                    <p class="card-text">Easily monitor where your money goes and how much you’re spending.</p>
+                </div>
+            </div>
         </div>
-       
-        <div class="form-group">
-          <label for="descriptionInput">Description</label>
-          <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="3"></textarea>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Set Budgets</h3>
+                    <p class="card-text">Create custom budgets to help you stay on track with your financial goals.</p>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-      <script>
-        flatpickr("#dateInput", {
-            dateFormat: "d-m-Y"  // Desired date format
-        });
-        </script>   
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Analyze Finances</h3>
+                    <p class="card-text">Get detailed reports and insights into your financial habits.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- New Content Section -->
+    <div class="row mt-5">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">AI Financial Assistant <span style="color: red;">(Coming Soon)</span></h3>
+                    <p class="card-text">Get daily tips and tricks on how to save money and manage your budget effectively.</p>
+                    <a href="/tips/" class="btn btn-outline-primary disabled">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Budget Calculator <span style="color: red;">(Coming Soon)</span></h3>
+                    <p class="card-text">Use our interactive budget calculator to plan your monthly expenses.</p>
+                    <a href="/calculator/" class="btn btn-outline-success disabled">Try Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Testimonials Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4" >What Our Users Are Saying</h2>
+    <div class="row">
+        <!-- Testimonial 1 -->
+        <div class="col-lg-4 mb-4 d-flex justify-content-center">
+            <div class="testimonial-item p-4 bg-light shadow-lg rounded" style="width: 100%;">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/10317/10317086.png" alt="Faisal Al-Mutairi" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                    <h5 class="mb-0">Faisal Al-Mutairi</h5>
+                </div>
+                <p class="mb-0">"BudJet has transformed the way I manage my finances!"</p>
+            </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="col-lg-4 mb-4 d-flex justify-content-center">
+            <div class="testimonial-item p-4 bg-light shadow-lg rounded" style="width: 100%;">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://cdn3.iconfinder.com/data/icons/helpdesk-filled-line/512/Helpdesk_Customer_Service-512.png" alt="Sara Al-Farhan" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                    <h5 class="mb-0">Sara Al-Farhan</h5>
+                </div>
+                <p class="mb-0">"I love how easy it is to track my expenses and set budgets."</p>
+            </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="col-lg-4 mb-4 d-flex justify-content-center">
+            <div class="testimonial-item p-4 bg-light shadow-lg rounded" style="width: 100%;">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1914/1914883.png" alt="Mohammed Al-Shehri" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                    <h5 class="mb-0">Mohammed Al-Shehri</h5>
+                </div>
+                <p class="mb-0">"The best personal finance tool I've ever used!"</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Custom CSS for Testimonials -->
+<style>
+    .testimonial-item {
+        border-left: 4px solid #007bff; /* Accent color for the border */
+        max-width: 400px; /* Max width for large screens */
+        margin: auto; /* Center the testimonial item */
+    }
+    .testimonial-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+    .testimonial-item h5 {
+        font-size: 1.25rem;
+        color: #333;
+    }
+    .testimonial-item p {
+        font-size: 1rem;
+        color: #555;
+    }
+</style>
+
+<!-- Optional: Custom JavaScript for FontAwesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</div>
+
+<!-- Optional JavaScript for icons (FontAwesome) -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 {% endblock body %}

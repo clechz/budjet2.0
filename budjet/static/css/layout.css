@@ -1,0 +1,12 @@
+.navbar, .offcanvas{
+    background-image: linear-gradient(to right, #4CAF50, #8BC34A) !important; /* Gradient colors */
+    border-bottom: none !important; /* Remove any border if needed */
+  }
+  
+  button{
+      color: aliceblue !important;
+  }
+  h1{
+      text-align: right;
+      color: rgb(0, 0, 0) !important;
+  }
